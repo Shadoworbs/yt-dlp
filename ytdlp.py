@@ -1,17 +1,11 @@
 # import the necessary modules
 from __future__ import unicode_literals
 import os
-import sys
 from yt_dlp import YoutubeDL
 from datetime import datetime
 from time import sleep
 import math
-import glob
-
 import yt_dlp
-
-
-     
 
 
 # creating a function to create a .log file and write some infos in it
@@ -59,31 +53,6 @@ def getsize(title, mode='video', ext='.mp4') -> str:
                 size_ = "%s %s" % (s, size_name[i])
                 return size_
             
-# function to convert size from bytes to readable format
-# def convert_size(size_):
-    # if size_ == 0:
-    #     return "0B"
-    # size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-    # i = int(math.floor(math.log(size_, 1024)))
-    # p = math.pow(1024, i)
-    # s = round(size_ / p, 2)
-    # size_ = "%s %s" % (s, size_name[i])
-    # return size_
-
-# set up the video download options
-# opts = {"trim_file_name": 200,
-#         "format": f"((bv*[fps>={fps}]/bv*)[height<={video_height}]/(wv*[fps>={fps}]/wv*)) + ba / (b[fps>{fps}]/b)[height<={video_height}]/(w[fps>={fps}]/w)",
-#         "playlist": True,
-#         "outtmpl": "%(title)s.%(ext)s",
-#         "audio_format": "mp3",
-#         "video_format": "mp4",
-#         "audio_quality": "128",
-#         "audio_codec": "aac",
-#         "audio_bitrate": "128k",
-#         "audio_channels": "2",
-#         "audio_samplerate": "44100",
-#         "merge_output_format": "mp4"}
-
 # function to download the audio only
 def download_audio(url):
     
@@ -189,7 +158,6 @@ Video Size: {get_size}
     
     # log the video information
     log(log_inf)
-
 
 if __name__ == "__main__":
     # create a variable to store the link from the user
