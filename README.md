@@ -7,11 +7,11 @@ A simple CLI tool to help you download yoututbe videos.
 * Supports playlist download.
 * High quality audio.
 
-<div>
-    <a href='https://youtube.com/shadowmng3887' target='_blank'>My youtube Channel
-    <img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Fsearch%3Fq%3Dyoutube&psig=AOvVaw3ocNvcSFq0YdyPiCxzEkEf&ust=1713687977031000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOCnrKyv0IUDFQAAAAAdAAAAABAI' alt='Youtube Icon'>
-    </a>
-    
-</div>
-
+#### My social media links
+<a href='https://www.youtube.com/channel/UCtVgLGT-EfVYmem6XZFCwYw' target='_blank'>
+    <img src='images/yticon.png' style='width: 80; height:25' alt='youtube-icon'></a>
+    <a href='https://shadoworbs.t.me' target='_blank'>
+    <img src='images/tlogo.png' style='height: 25; width: 80; background: #7cc9f8;' alt='telegram-icon'></a>
+    <a href='https://wa.me/+233547348131' target='_blank'>
+    <img src='images/walogo.png' style='width: 80; height: 25;' alt='whatsapp-icon'>
 
