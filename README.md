@@ -11,7 +11,7 @@ A simple CLI tool to help you download yoututbe videos.
 <a href='https://www.youtube.com/channel/UCtVgLGT-EfVYmem6XZFCwYw' target='_blank'>
     <img src='images/yticon.png' style='width: 80px; height:25px' alt='youtube-icon'></a>
     <a href='https://shadoworbs.t.me' target='_blank'>
-    <img src='images/tlogo.png' style='height: 25px; width: 80px; color: #7cc9f8;' alt='telegram-icon'></a>
+    <img src='images/tlogo.png' style='height: 25px; width: 80px; background: #7cc9f8;' alt='telegram-icon'></a>
     <a href='https://wa.me/+233547348131' target='_blank'>
     <img src='images/walogo.png' style='width: 80px; height: 25px;' alt='whatsapp-icon'>
 
