@@ -48,11 +48,13 @@ if __name__ == "__main__":
         while True:
             try:
                 choice = int(input("Enter the number of the format you want to download (or 0 to cancel): "))
-                if 0 <= choice <= len(formats):
+                if 0 <= choice <= len(formats): # Check if choice is within range and not 0
                     break
                 else:
+                    # if choice is not within range or is 0
                     print("Invalid choice. Please enter a number between 0 and", len(formats))
             except ValueError:
+                # if user inputs a value that is not a number
                 print("Invalid input. Please enter a number.")
         # set the height to selected format's height.
         video_height = filtered_formats[choice - 1]["height"]
