@@ -1,4 +1,4 @@
-# yt-dlp CLI
+# python yt-dlp CLI
 A simple CLI tool built with [python3](https://python.org/download) to help you download yoututbe videos.
 
 ## Features

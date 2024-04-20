@@ -17,7 +17,10 @@ def getsize(title, mode='video', ext='.mp4') -> str:
             pass
     with os.scandir(os.getcwd()) as files:
         for file in files:
-            if title in file.path and ext in file.path and file.is_file():
+            if (title in file.path
+                and file.path.endswith(ext)
+                and file.is_file()
+                ):
                 file_path: str = file.path
                 file_: str = file.name
                 size_: int = os.stat(file).st_size
