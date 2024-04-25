@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="./resources/CSS/style.css">
-
-
 # python yt-dlp CLI
 A simple CLI tool built with [python3](https://python.org/download) to help you download yoututbe videos.
 
@@ -31,14 +28,16 @@ For Mac or Linux: run `python3 ytdlp.py`.
 ### My social media links
 <!-- Youtube handle -->
 <a href='https://www.youtube.com/channel/UCtVgLGT-EfVYmem6XZFCwYw' target='_blank'>
-    <img src='resources/images/yticon.png'  alt='youtube-icon'></a>
+    <img src='resources/images/yticon.png' style='width: 80px; height: 25px;'  alt='youtube-icon'></a>
 <!-- Telegram handle -->
 <a href='https://shadoworbs.t.me' target='_blank'>
-    <img src='resources/images/tlogo.png'  alt='telegram-icon'></a>
+    <img src='resources/images/tlogo.png' style='width: 80px; height: 25px;'  alt='telegram-icon'></a>
 <!-- Whatsapp handle -->
 <a href='https://wa.me/+233547348131' target='_blank'>
-    <img src='resources/images/walogo.png' alt='whatsapp-icon'></a>
+    <img src='resources/images/walogo.png' style='width: 80px; height: 25px;' alt='whatsapp-icon'></a>
 
 #### Credits:
+
 <a href='https://github.com/yt-dlp/yt-dlp' target='_blank'>
-<img class='credits' src='resources/images/icon.png' alt='yt-dlp icon' ></a>
+<img src='resources/images/icon.png' alt='yt-dlp icon' style='width: 50px; height: 40px; border: 0.5px solid grey; border-radius: 12px; margin: 0px 0px 0px 20px;'></a>
+
