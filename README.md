@@ -16,7 +16,7 @@ Follow the instructions on [this page](https://github.com/yt-dlp/yt-dlp/wiki/Ins
 
 Follow [this tutorial](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/) to install **ffmpeg**.
 
-Open your terminal and clone this repo `git clone https://github.com/shadoworbs/yt-dlp.git`
+Open your terminal and clone this repo ```git clone https://github.com/shadoworbs/yt-dlp.git```
 
 Run `cd yt-dlp`
 
