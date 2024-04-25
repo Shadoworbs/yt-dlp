@@ -1,7 +1,7 @@
 # import the necessary modules
 import math
 import os
-
+import os.path as path
 
 # function to get stats of downloaded file
 def getsize(title, mode='video', ext='.mp4') -> str:
@@ -23,7 +23,7 @@ def getsize(title, mode='video', ext='.mp4') -> str:
                 ):
                 file_path: str = file.path
                 file_: str = file.name
-                size_: int = os.stat(file).st_size
+                size_: int = path.getsize(file)
                 # convert the size from bytes to readable format
                 if size_ == 0:
                     return "0B"

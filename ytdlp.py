@@ -1,14 +1,15 @@
 # import the necessary modules
-from modules.video_downloader import download_video
-from modules.audio_downloader import download_audio
+from resources.modules.video_downloader import download_video
+from resources.modules.audio_downloader import download_audio
 import yt_dlp
 
 
 if __name__ == "__main__":
     # create a variable to store the link from the user
     url = input('\nEnter a youtube video link or press enter to exit: \n')
+    if 'https://' in url and 'youtu' in url:
+        audio_only = input('\nDo you want to download the audio only? (y/n) ')
 
-    audio_only = input('\nDo you want to download the audio only? (y/n) ')
     # check if user wants to download audio only
     if "https://" in url and 'youtu' in url and audio_only.lower() == 'y':
         download_audio(url)
