@@ -1,3 +1,7 @@
+# This is an open source project created by shadoworbs
+# Visit https://github.com/shadoworbs/yt-dlp for more information
+
+
 # import the necessary modules
 from resources.modules.video_downloader import download_video
 from resources.modules.audio_downloader import download_audio
@@ -64,16 +68,4 @@ if __name__ == "__main__":
         
     else:
         print("\nInvalid youtube link, try again.")
-
-
-
-
-
-
-# TODO:
-
-
-
-
-
 
