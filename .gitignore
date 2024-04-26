@@ -2,4 +2,5 @@
 /audio
 /*.mp4
 /*.m4a
-/modules/__pycache__
+/resources/modules/__pycache__
+resources\modules\__pycache__\calculate_size.cpython-310.pyc
