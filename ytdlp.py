@@ -4,8 +4,8 @@
 
 # import the necessary modules
 import sys
-from resources.helper.video_downloader import download_video
-from resources.helper.audio_downloader import download_audio
+from helper.video_downloader import download_video
+from helper.audio_downloader import download_audio
 import yt_dlp
 
 
@@ -21,12 +21,12 @@ if __name__ == "__main__":
     if ("https://" in url 
         and 'youtu' in url 
         and audio_only.lower() == 'y'
-        ):
+       ):
         download_audio(url)
     
     # download the video
-    elif ("https://" in url 
-          and 'youtu' in url 
+    elif ("https://" in url
+          and 'youtu' in url
           and audio_only != 'y'
           ):
 

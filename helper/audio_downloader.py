@@ -3,9 +3,9 @@ from datetime import datetime
 import os.path as path
 import os
 from yt_dlp import YoutubeDL
-from resources.helper.converter import convert_seconds
-from resources.helper.calculate_size import getsize
-from resources.helper.logger import log
+from helper.converter import convert_seconds
+from helper.calculate_size import getsize
+from helper.logger import log
 
 
 # function to download the audio only

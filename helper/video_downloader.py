@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 from datetime import datetime
 from yt_dlp import YoutubeDL
-from resources.helper.converter import convert_seconds
-from resources.helper.calculate_size import getsize
-from resources.helper.logger import log
+from helper.converter import convert_seconds
+from helper.calculate_size import getsize
+from helper.logger import log
 import os
 
 # function to download the video only
