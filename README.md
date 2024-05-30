@@ -28,16 +28,16 @@ For Mac or Linux: run `python3 ytdlp.py`.
 ### My social media links
 <!-- Youtube handle -->
 <a href='https://www.youtube.com/channel/UCtVgLGT-EfVYmem6XZFCwYw' target='_blank'>
-    <img src='resources/images/yticon.png' style='width: 80px; height: 25px;'  alt='youtube-icon'></a>
+    <img src='https://graph.org/file/771c8e491c0b014d9b3f7.png' style='width: 80px; height: 25px;'  alt='youtube-icon'></a>
 <!-- Telegram handle -->
 <a href='https://shadoworbs.t.me' target='_blank'>
-    <img src='resources/images/tlogo.png' style='width: 80px; height: 25px;'  alt='telegram-icon'></a>
+    <img src='https://graph.org/file/031b309ce5ae5df5242ab.png' style='width: 80px; height: 25px;'  alt='telegram-icon'></a>
 <!-- Whatsapp handle -->
 <a href='https://wa.me/+233547348131' target='_blank'>
-    <img src='resources/images/walogo.png' style='width: 80px; height: 25px;' alt='whatsapp-icon'></a>
+    <img src='https://telegra.ph/file/7f42c07e82fdaae2adc96.png' style='width: 80px; height: 25px;' alt='whatsapp-icon'></a>
 
 #### Credits:
 
 <a href='https://github.com/yt-dlp/yt-dlp' target='_blank'>
-<img src='resources/images/icon.png' alt='yt-dlp icon' style='width: 50px; height: 40px; border: 0.5px solid grey; border-radius: 12px; margin: 0px 0px 0px 20px;'></a>
+<img src='https://telegra.ph/file/c1e23654cc2f42d40a0fd.png' alt='yt-dlp icon' style='width: 50px; height: 40px; border: 0.5px solid grey; border-radius: 12px; margin: 0px 0px 0px 20px;'></a>
 

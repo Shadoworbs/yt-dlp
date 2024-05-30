@@ -2,4 +2,6 @@
 /audio
 /*.mp4
 /*.m4a
-/modules/__pycache__
+/*.part
+/*.webm
+/helper/__pycache__
