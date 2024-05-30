@@ -8,9 +8,8 @@ from helper.video_downloader import download_video
 from helper.audio_downloader import download_audio
 import yt_dlp
 
-
-if __name__ == "__main__":
-    # create a variable to store the link from the user
+def main():
+# create a variable to store the link from the user
     url = input('\nEnter a youtube video link or press enter to exit: \n')
     if ('https://' in url 
         and 'youtu' in url
@@ -61,7 +60,7 @@ if __name__ == "__main__":
         # select video quality (height)
         while True:
             try:
-                choice = int(input("Enter the number of the format you want to download (or 0 to cancel): "))
+                choice = int(input("Enter the number of the resolution you want to download (or 0 to cancel): "))
                 if 1 <= choice <= len(filtered_formats): # Check if choice is within range and not 0
                     break
                 elif int(choice) == 0:
@@ -79,4 +78,8 @@ if __name__ == "__main__":
         
     else:
         print("\nInvalid youtube link, try again.")
+
+## initiate the download
+if __name__ == "__main__":
+    main()
 

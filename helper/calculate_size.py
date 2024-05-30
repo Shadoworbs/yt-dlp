@@ -5,7 +5,8 @@ import os
 def search(title, ext='.mp4'):
         with os.scandir(os.getcwd()) as files:
                 for file in files:
-                    if (os.path.basename(file) == f"{title}.mp4"
+                    filename_lenght = len(os.path.basename(file))
+                    if (os.path.basename(file) == f"{title}.mp4" or file.name == title[:filename_lenght//2]
                         and os.path.isfile(file)):
                         size_ = os.path.getsize(file)
                         # convert the size from bytes to readable format

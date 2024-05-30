@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from datetime import datetime
+import time
 from yt_dlp import YoutubeDL
 from helper.converter import convert_seconds
 from helper.calculate_size import getsize
@@ -24,6 +25,7 @@ def download_video(url, video_height, fps=25):
 
     # set up the video download options
     opts = {"trim_file_name": 200,
+            "encoding": "utf-8",
             "format": f"((bv*[fps>={fps}]/bv*)[height<={video_height}]/(wv*[fps>={fps}]/wv*)) + ba / (b[fps>{fps}]/b)[height<={video_height}]/(w[fps>={fps}]/w)",
             "playlist": True,
             "outtmpl": "%(title)s.%(ext)s",
@@ -39,8 +41,11 @@ def download_video(url, video_height, fps=25):
         video_duration = info_dict.get('duration', str)
         Video_resloution = raw_resolution.split('x')[-1] or video_height
 
+    # sleep for some 5 seconds
+    print("\nPreparing video information...\n")
+    time.sleep(5)
     # prepare a info (dict) for logging
-    get_size = getsize(video_title) # instantiate the getsize function
+    get_size = getsize(fr'{video_title}') # instantiate the getsize function
     log_inf = {"Video Name": f'{video_title}.mp4',
                 "Location": os.getcwd(),
                 "Duration": convert_seconds(video_duration),
