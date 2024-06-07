@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 from datetime import datetime
-import time
 from yt_dlp import YoutubeDL
 from helper.converter import convert_seconds
 from helper.calculate_size import getsize
@@ -8,7 +7,7 @@ from helper.logger import log
 import os
 
 # function to download the video only
-def download_video(url, video_height, fps=25):
+def download_video(url, video_height, fps=30) -> dict:
     if os.path.exists('videos'):
         try:
             os.chdir('videos')
@@ -25,11 +24,13 @@ def download_video(url, video_height, fps=25):
 
     # set up the video download options
     opts = {"trim_file_name": 200,
+            'outtmpl': 'video-%(id)s.%(ext)s',
             "encoding": "utf-8",
-            "format": f"((bv*[fps>={fps}]/bv*)[height<={video_height}]/(wv*[fps>={fps}]/wv*)) + ba / (b[fps>{fps}]/b)[height<={video_height}]/(w[fps>={fps}]/w)",
+            "format": f"((bv*[ext=mp4])[height<={video_height}]/(wv*[ext=mp4]/wv*)) + (ba[ext=mp3]/ba) / (b[fps<={fps}]/b)[height<={video_height}]/(w[fps<={fps}]/w)",
             "playlist": True,
-            "outtmpl": "%(title)s.%(ext)s",
-            "merge_output_format": "mp4"} # using a merge output format that will result in a low size video
+            # "outtmpl": "%(title)s.%(ext)s",
+            # "merge_output_format": "mp4"
+            } # using a merge output format that will result in a low size video
     with YoutubeDL(opts) as ydl:
         info_dict = ydl.extract_info(url, download=True)
         video_title: str = info_dict.get('title', str)
@@ -37,32 +38,38 @@ def download_video(url, video_height, fps=25):
         # dur: str = info_dict.get('duration_string', str)
         raw_resolution: str = info_dict.get('resolution', str)
         # size: str = info_dict.get('filesize')
-        # video_id: str = info_dict.get('id', str)
+        video_id: str = info_dict.get('id', str)
         video_duration = info_dict.get('duration', str)
         Video_resloution = raw_resolution.split('x')[-1] or video_height
 
-    # sleep for some 5 seconds
-    print("\nPreparing video information...\n")
-    time.sleep(5)
+
     # prepare a info (dict) for logging
-    get_size = getsize(fr'{video_title}') # instantiate the getsize function
+    get_size = getsize(fr'video-{video_id}', ext=extension) # instantiate the getsize function
     log_inf = {"Video Name": f'{video_title}.mp4',
                 "Location": os.getcwd(),
                 "Duration": convert_seconds(video_duration),
                 "Resolution": f'{Video_resloution}p',
                 "Size": get_size,
                 "Link": url,
-                "Date": f'{datetime.now().strftime("%A, %B %d %Y | %I:%M %p")}'}
+                "Timestamp": f'{datetime.now().strftime("%A, %B %d %Y | %I:%M %p")}'}
     
+    try:
+        os.rename(f'video-{video_id}.{extension}', f'{video_title}-{Video_resloution}p.{extension}')
+    except Exception as e:
+        print(f'Error occured in renaming video to original name: \n{e}')
+        os.remove(f'video-{video_id}.{extension}')
+        print('Video removed from directory.')
+        
+
     # print a success message after download completes
     print(f"""
 Download complete!
-Video name: {video_title}.mp4
+Video name: {video_title}.{extension}
 Video location : {os.getcwd()}
 Video duration: {convert_seconds(video_duration)}
 Video resolution: {Video_resloution}p
 Video Size: {get_size}
 """)
-    
     # log the video information
     log(log_inf)
+    # return {'video_id': video_id, 'video_title': video_title, 'video_extension': extension}

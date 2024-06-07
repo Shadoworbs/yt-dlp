@@ -14,7 +14,7 @@ def main():
     if ('https://' in url 
         and 'youtu' in url
        ):
-        audio_only = input('\nDo you want to download the audio only? (y/n) ')
+        audio_only = input('\nDo you want to download the audio only? (y/n) \n')
 
     # check if user wants to download audio only
     if ("https://" in url 
