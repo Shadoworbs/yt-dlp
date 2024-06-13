@@ -28,7 +28,6 @@ def download_video(url, video_height, fps=30) -> tuple:
             print(f"Can't create directory /videos\n{e}")
             pass
 
-
     # set up the video download options
     opts = {"trim_file_name": 200,
             'outtmpl': '%(title)s_%(id)s_%(resolution)s.%(ext)s',
@@ -49,7 +48,6 @@ def download_video(url, video_height, fps=30) -> tuple:
         video_duration = info_dict.get('duration', str)
         video_resolution = raw_resolution.split('x')[-1] or video_height
 
-
     # assign the return value convert_seconds to a variable
     readable_duration = convert_seconds(video_duration)
     # assign the return value of getsize function to a variable
@@ -57,7 +55,6 @@ def download_video(url, video_height, fps=30) -> tuple:
     # rename the video to it's original name
     # renamer(video_title, extension, video_id, video_resolution, cwd, raw_res=raw_resolution, sec_name=secondary_name)
 
-    
     # prepare a info (dict) for logging
     log_inf = {"Video Name": f'{video_title}_{video_id}_{raw_resolution}.{extension}',
                 "Location": cwd,
@@ -69,7 +66,6 @@ def download_video(url, video_height, fps=30) -> tuple:
     
     # log the video information
     log(log_inf)
-
 
     # print a success message after download completes
     print(f"""
@@ -114,12 +110,10 @@ def download_audio(url):
         audio_duration = info_dict.get('duration', str)  # extract the duration fron the url info.json
         audio_id = info_dict.get('id', str) # get the audio id
 
-
         # assign the return value of convert seconds functioni to a varible
         readable_duration = convert_seconds(audio_duration)
         # assign the return value of getsize to a variable
         get_size = getsize(id=audio_id, ext=extension, mode='audio')
-
 
         # set up the audio information dictionary for logging
         audio_infos = {"Title": f'{audio_title}_{audio_id}.{extension}',
@@ -128,10 +122,8 @@ def download_audio(url):
                         "Size": get_size,
                         "Timestamp": f'{now().strftime("%A, %B %d %Y | %I:%M %p")}'}
         
-
         # log the audio information to a log file
         log(audio_infos)
-
 
         # print success message after downloading is complete
         print(f"""
