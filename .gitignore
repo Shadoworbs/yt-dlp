@@ -1,7 +1,23 @@
+# folders/directories
 /videos
 /audio
+/helper/__pycache__
+/__pycache__
+/helper/.ruff_cache
+
+# files/videos/etc
 /*.mp4
 /*.m4a
 /*.part
 /*.webm
-/helper/__pycache__
+/*.env
+/*.log
+/*.mkv
+/*avi
+/*.MOV
+/*.mov 
+/*.mp3
+/*.flac
+/*.aac
+/*txt
+

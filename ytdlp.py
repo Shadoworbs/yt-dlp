@@ -4,8 +4,7 @@
 
 # import the necessary modules
 import sys
-from helper.video_downloader import download_video
-from helper.audio_downloader import download_audio
+from helper.downloaders import download_video, download_audio
 import yt_dlp
 
 def main():
@@ -14,7 +13,7 @@ def main():
     if ('https://' in url 
         and 'youtu' in url
        ):
-        audio_only = input('\nDo you want to download the audio only? (y/n) ')
+        audio_only = input('\nDo you want to download the audio only? (y/n) \n')
 
     # check if user wants to download audio only
     if ("https://" in url 
@@ -67,19 +66,19 @@ def main():
                     sys.exit()
                 else:
                     # if choice is not within range or is 0
-                    print("Invalid choice. Please enter a number from 1 to", len(filtered_formats))
+                    print(f"Invalid choice. Please enter a number from 1 to {len(filtered_formats)}\n")
             except ValueError:
                 # if user inputs a value that is not a number
-                print("Invalid input. Please enter a number.")
+                print("Invalid input. Please enter a number.\n")
         # set the height to selected format's height.
         video_height = filtered_formats[choice - 1]
         download_video(url, video_height)
-        # fps = input('\nEnter framerate. Default is 25: ') or '25'
-        
+    elif 'https' not in url and 'youtu' not in url and len(url) >= 1:
+        print("\nInvalid youtube link, try again.\n")
     else:
-        print("\nInvalid youtube link, try again.")
+        sys.exit(0)
 
-## initiate the download
+## initiate the download https://youtube.com/shorts/n-Rf3EJ_WaU?si=vMwAAWI7QlkT4IYr
 if __name__ == "__main__":
     main()
 
