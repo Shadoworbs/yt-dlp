@@ -1,1 +1,1 @@
-worker: python ytdlp.py
+worker: python3 ytdlp.py
