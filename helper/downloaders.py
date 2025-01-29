@@ -30,10 +30,12 @@ def download_video(url, video_height, fps=30) -> tuple:
 
     # set up the video download options
     opts = {"trim_file_name": 200,
+            "cookies": "kookies.txt",
             'outtmpl': '%(title)s_%(id)s_%(resolution)s.%(ext)s',
             "encoding": "utf-8",
             "format": f"((bv*[ext=mp4])[height<={video_height}]/(wv*[ext=mp4]/wv*)) + (ba[ext=mp3]/ba) / (b[fps<={fps}]/b)[height<={video_height}]/(w[fps<={fps}]/w)",
             "playlist": True,
+            "cookiefile": "cookies_from_browser firefox",
             # "outtmpl": "%(title)s.%(ext)s",
             # "merge_output_format": "mp4"
             } # using a merge output format that will result in a low size video
@@ -74,8 +76,7 @@ Video name: {video_title}_{video_id}_{raw_resolution}.{extension}
 Video location : {cwd}
 Video duration: {readable_duration}
 Video resolution: {video_resolution}p
-Video Size: {get_size}
-""")
+Video Size: {get_size}""")
     
 
 
@@ -103,7 +104,8 @@ def download_audio(url):
     # start the dowload process
     with YoutubeDL({'extract_audio': True, 
                             "format": "bestaudio[ext=m4a]/b", 
-                            'outtmpl': '%(title)s_%(id)s.%(ext)s'}) as audio:
+                            'outtmpl': '%(title)s_%(id)s.%(ext)s',
+                            "cookiefile": "cookies_from_browser firefox"}) as audio:
         info_dict = audio.extract_info(url, download=True) # download the audio
         audio_title = info_dict['title'] # extract the title from the url info.json
         extension = info_dict['ext'] # extract the extension from the url info.json

@@ -1,4 +1,4 @@
-# This is an open source project created by shadoworbs
+# This is an open source project created by shadoworbs for downloading youtube video/audio
 # Visit https://github.com/shadoworbs/yt-dlp for more information
 
 
@@ -73,12 +73,11 @@ def main():
         # set the height to selected format's height.
         video_height = filtered_formats[choice - 1]
         download_video(url, video_height)
-    elif 'https' not in url and 'youtu' not in url and len(url) >= 1:
+    elif 'youtu' not in url and len(url) >= 1:
         print("\nInvalid youtube link, try again.\n")
     else:
         sys.exit(0)
 
-## initiate the download https://youtube.com/shorts/n-Rf3EJ_WaU?si=vMwAAWI7QlkT4IYr
+## initiate the download https://youtube.com/shorts/LXxOgXNgVws?si=ov5cmgKm8U7thgkE
 if __name__ == "__main__":
     main()
-
