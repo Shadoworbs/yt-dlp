@@ -1,7 +1,6 @@
 # This is an open source project created by shadoworbs for downloading youtube video/audio
 # Visit https://github.com/shadoworbs/yt-dlp for more information
 
-
 # import the necessary modules
 import sys
 from helper.downloaders import download_video, download_audio

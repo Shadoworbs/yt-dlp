@@ -30,7 +30,6 @@ def download_video(url, video_height, fps=30) -> tuple:
 
     # set up the video download options
     opts = {"trim_file_name": 200,
-            "cookies": "kookies.txt",
             'outtmpl': '%(title)s_%(id)s_%(resolution)s.%(ext)s',
             "encoding": "utf-8",
             "format": f"((bv*[ext=mp4])[height<={video_height}]/(wv*[ext=mp4]/wv*)) + (ba[ext=mp3]/ba) / (b[fps<={fps}]/b)[height<={video_height}]/(w[fps<={fps}]/w)",
