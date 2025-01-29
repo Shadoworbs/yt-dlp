@@ -6,6 +6,7 @@ A simple CLI tool built with [python3](https://python.org/download) to help you 
 * Option to extract audio from a youtube video link.
 * Supports playlist download.
 * High quality audio.
+* Low sized high quality videos.
 
 ## Setting up
 Download **python3** from [Here](https://python.org/download) if you do not have python installed.
@@ -26,15 +27,8 @@ For Mac or Linux: run `python3 ytdlp.py`.
 
 
 ### My social media links
-<!-- Youtube handle -->
-<a href='https://www.youtube.com/channel/UCtVgLGT-EfVYmem6XZFCwYw' target='_blank'>
-    <img src='https://graph.org/file/771c8e491c0b014d9b3f7.png' style='width: 80px; height: 25px;'  alt='youtube-icon'></a>
-<!-- Telegram handle -->
-<a href='https://shadoworbs.t.me' target='_blank'>
-    <img src='https://graph.org/file/031b309ce5ae5df5242ab.png' style='width: 80px; height: 25px;'  alt='telegram-icon'></a>
-<!-- Whatsapp handle -->
-<a href='https://wa.me/+233547348131' target='_blank'>
-    <img src='https://telegra.ph/file/7f42c07e82fdaae2adc96.png' style='width: 80px; height: 25px;' alt='whatsapp-icon'></a>
+<!-- LinkTree handle -->
+<a href="https://linktr.ee/Shadoworbs" target='_blank'><img src="https://dl.westtelecom.cloud/get_file?token=_59XPDRq98e1behV3E6xAZJJPrv_5JD1" alt="Linktree-icon" style="height: 60px; width: 70px; border: 2px solid lightgreen; border-radius: 20%;" ></a>
 
 #### Credits:
 
