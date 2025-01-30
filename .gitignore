@@ -4,6 +4,7 @@
 /helper/__pycache__
 /__pycache__
 /helper/.ruff_cache
+/test_modules
 
 # files/videos/etc
 /*.mp4
