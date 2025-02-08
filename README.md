@@ -28,7 +28,7 @@ For Mac or Linux: run `python3 ytdlp.py`.
 
 ### My social media links
 <!-- LinkTree handle -->
-<a href="https://linktr.ee/Shadoworbs" target='_blank'><img src="https://dl.westtelecom.cloud/get_file?token=_59XPDRq98e1behV3E6xAZJJPrv_5JD1" alt="Linktree-icon" style="height: 60px; width: 70px; border: 2px solid lightgreen; border-radius: 20%;" ></a>
+<a href="https://linktr.ee/Shadoworbs" target='_blank'><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPdemKc0f5jZrJzkfVmAUstvd9XKWUWsDJ2g&s" alt="Linktree-icon" style="height: 60px; width: 70px; border: 2px solid lightgreen; border-radius: 20%;" ></a>
 
 #### Credits:
 
