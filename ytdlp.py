@@ -24,7 +24,7 @@ def main():
     # download the video
     elif ("https://" in url
           and 'youtu' in url
-          and audio_only != 'y'
+          and audio_only.lower() != 'y'
           ):
 
         # show available formats
@@ -45,13 +45,12 @@ def main():
                     filtered_formats.append(resolution) # getting rid of all duplicates and None(s)
             # show available heights (formats)
             if filtered_formats:
-                print("\n[+]Available Resolutions and Framerates:")
+                print("\n[+]Available Resolutions:")
                 print(" #  Resolutions")
                 print("-"*15)
                 for number, height in enumerate(filtered_formats):
                     resolution = height
                     print(f"{(number+1):2}. {str(resolution):<12}")
-                # sys.exit()
 
             else:
                 print("No available formats found.")

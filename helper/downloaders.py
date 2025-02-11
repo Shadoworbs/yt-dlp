@@ -2,15 +2,13 @@ from __future__ import unicode_literals
 from datetime import datetime
 from yt_dlp import YoutubeDL
 from helper.functions import getsize, convert_seconds, log
+from config import video_merge_output_format as final_extension, video_format_selection_options as formats_
 import os
-
 
 cwd = os.getcwd()
 now = datetime.now
 audio_folder, video_folder = "audio", "videos"
 timestamps = now().strftime('%Y%m%d%H%M%S')
-
-
 
 ###############################################
 ###########    Video Downloader   #############
@@ -18,7 +16,7 @@ timestamps = now().strftime('%Y%m%d%H%M%S')
 
 # function to download video only
 def download_video(url, video_height, fps=30) -> tuple:
-    global cwd, now, timestamps, video_folder
+    global cwd, now, timestamps, video_folder, final_extension, formats_
     if os.path.exists(video_folder):
         try:
             os.chdir(video_folder)
@@ -37,11 +35,11 @@ def download_video(url, video_height, fps=30) -> tuple:
     opts = {"trim_file_name": 200,
             'outtmpl': '%(title)s_{timestamps}.%(ext)s'.format(timestamps=timestamps),
             "encoding": "utf-8",
-            "format": f"((bv*[ext=mp4])[height<={video_height}]/(wv*[ext=mp4]/wv*)) + (ba[ext=mp3]/ba) / (b[fps<={fps}]/b)[height<={video_height}]/(w[fps<={fps}]/w)",
-            "playlist": True,
+            "format": formats_.format(video_height, fps, video_height, fps),
+            # "playlist": True,
             "cookiefile": "cookies_from_browser firefox",
-            "merge_output_format": "mp4"
-            } # using a merge output format that will result in a low size video
+            "merge_output_format": final_extension
+            } # using a merge output format that will result in a low size video wihout sacrificing quality
     with YoutubeDL(opts) as ydl:
         info_dict = ydl.extract_info(url, download=True)
         video_title: str = info_dict.get('title', str)
@@ -60,7 +58,7 @@ def download_video(url, video_height, fps=30) -> tuple:
   
     # prepare a info (dict) for logging
     log_inf = {"Video Name": f'{video_title}_{timestamps}.{extension}',
-                "Location": f"{cwd}\\{video_folder}",
+                "Location": f"{os.path.join(cwd, video_folder)}",
                 "Duration": readable_duration,
                 "Resolution": f'{video_resolution}p',
                 "Size": get_size,
@@ -74,13 +72,10 @@ def download_video(url, video_height, fps=30) -> tuple:
     print(f"""
 Download complete!
 Video name: {video_title}_{timestamps}.{extension}
-Video location : {cwd}\\{video_folder}
+Video location : {os.path.join(cwd, video_folder)}
 Video duration: {readable_duration}
 Video resolution: {video_resolution}p
 Video Size: {get_size}""")
-    
-
-
 
 ###############################################
 ###########    Audio Downloader   #############
@@ -121,7 +116,7 @@ def download_audio(url):
 
         # set up the audio information dictionary for logging
         audio_infos = {"Title": f'{audio_title}_{timestamps}.{extension}',
-                        "Location": f"{cwd}\\{audio_folder}",
+                        "Location": f"{os.path.join(cwd, audio_folder)}",
                         "Duration": readable_duration,
                         "Size": get_size,
                         "Timestamp": f'{now().strftime("%A, %B %d %Y | %I:%M %p")}'}
@@ -133,7 +128,7 @@ def download_audio(url):
         print(f"""
 Download complete!
 Title: {audio_title}_{timestamps}.{extension}
-location: {cwd}\\{audio_folder}
+location: {os.path.join(cwd, audio_folder)}
 Duration: {readable_duration}
 Size: {get_size}
 """)

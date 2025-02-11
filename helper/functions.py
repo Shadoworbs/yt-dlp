@@ -1,6 +1,8 @@
 import os
 import math
 
+SIZE_NAME = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+
 
 # logger function
 def log(inf: dict) -> None:
@@ -28,12 +30,15 @@ def getsize(timestamp) -> str:
             if (timestamp in file.name 
                 and os.path.isfile(file)):
                 size_ = os.path.getsize(file)
-        # convert the size from bytes to readable format
+            else:
+                # if the file is not found
+                size_ = 0
+            
+    # convert the size from bytes to readable format
     if size_ == 0:
         return "0B"
-    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-    i = int(math.floor(math.log(size_, 1024)))
+    i = int(math.floor(math.log(size_, 2) / math.log(1024, 2)))
     p = math.pow(1024, i)
     s = round(size_ / p, 2)
-    size_ = "%s %s" % (s, size_name[i])
-    return size_
+    formatted_size = f"{s} {SIZE_NAME[i]}"
+    return formatted_size
