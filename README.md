@@ -28,10 +28,10 @@ For Mac or Linux: run `python3 ytdlp.py`.
 
 ### My social media links
 <!-- LinkTree handle -->
-<a href="https://linktr.ee/Shadoworbs" target='_blank'><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPdemKc0f5jZrJzkfVmAUstvd9XKWUWsDJ2g&s" alt="Linktree-icon" style="height: 60px; width: 70px; border: 2px solid lightgreen; border-radius: 20%;" ></a>
+<a href="https://linktr.ee/Shadoworbs" target='_blank'><img src="helper/scr/image.png" alt="Linktree-icon" style="height: 60px; width: 70px; border: 2px solid lightgreen; border-radius: 20%;" ></a>
 
 #### Credits:
-
+<!-- Ytdlp handle -->
 <a href='https://github.com/yt-dlp/yt-dlp' target='_blank'>
-<img src='https://telegra.ph/file/c1e23654cc2f42d40a0fd.png' alt='yt-dlp icon' style='width: 50px; height: 40px; border: 0.5px solid grey; border-radius: 12px; margin: 0px 0px 0px 20px;'></a>
+<img src='helper/scr/github.png' alt='yt-dlp icon' style='width: 50px; height: 40px; border: 0.5px solid grey; border-radius: 12px; margin: 0px 0px 0px 20px;'></a>
 
