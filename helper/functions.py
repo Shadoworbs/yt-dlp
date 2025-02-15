@@ -6,6 +6,9 @@ SIZE_NAME = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
 
 # logger function
 def log(inf: dict) -> None:
+    """
+    Logs the video information to a file named .log in the current directory.
+    """
     with open(".log", "a", encoding="utf-8") as log:
         for key in inf:
             log.write(f"""{key}: {inf[key]}\n""")
@@ -14,6 +17,9 @@ def log(inf: dict) -> None:
 
 # seconds converter
 def convert_seconds(seconds) -> str:
+    """
+    Converts seconds to a human-readable duration format.
+    """
     seconds = int(seconds)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
@@ -25,6 +31,8 @@ def convert_seconds(seconds) -> str:
 
 # search the current directory for the downloaded file and convert it's size to a readable format
 def getsize(timestamp) -> str:
+    """
+    Searches the current directory for the downloaded file and converts its size to a human-readable format."""
     with os.scandir(os.getcwd()) as files:
         for file in files:
             if (timestamp in file.name 

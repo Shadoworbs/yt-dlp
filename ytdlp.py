@@ -7,6 +7,8 @@ from helper.downloaders import download_video, download_audio
 import yt_dlp
 
 def main():
+    """
+    Main function to initiate the download."""
 # create a variable to store the link from the user
     url = input('\nEnter a youtube video link or press enter to exit: \n')
     if ('https://' in url 

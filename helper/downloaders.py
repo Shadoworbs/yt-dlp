@@ -16,7 +16,10 @@ timestamps = now().strftime('%Y%m%d%H%M%S')
 
 # function to download video only
 def download_video(url, video_height, fps=30) -> tuple:
-    global cwd, now, timestamps, video_folder, final_extension, formats_
+    """
+    Downloads the video from the given URL, resizes it to the specified height,
+    and saves it as a mp4 file with a unique timestamp and extension.
+    """
     if os.path.exists(video_folder):
         try:
             os.chdir(video_folder)
@@ -83,7 +86,8 @@ Video Size: {get_size}""")
 
 # function to download the audio only
 def download_audio(url):
-    global cwd, now, timestamps, audio_folder
+    """
+    Downloads the audio from the given URL and saves it as a m4a file with a unique timestamp."""
     # Create folders for storing downloaded media
     if os.path.exists(audio_folder):
         try:
