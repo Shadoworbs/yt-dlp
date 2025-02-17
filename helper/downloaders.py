@@ -76,7 +76,7 @@ def pre_download_options() -> tuple:
     return url, filtered_formats
 
 
-def start_downloading():
+def start_downloading() -> None:
     """
     Main function to initiate the download.
     - Calls the pre_download_options function to get the user's input.
