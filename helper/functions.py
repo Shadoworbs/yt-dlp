@@ -3,7 +3,6 @@ import math
 
 SIZE_NAME = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
 
-
 # logger function
 def log_post_download_info(inf: dict) -> None:
     """
@@ -13,7 +12,6 @@ def log_post_download_info(inf: dict) -> None:
         for key in inf:
             log.write(f"""{key}: {inf[key]}\n""")
         log.write("\n\n")
-
 
 # seconds converter
 def convert_video_duration_from_seconds(seconds) -> str:
@@ -27,7 +25,6 @@ def convert_video_duration_from_seconds(seconds) -> str:
     # {days}d
     duration = f"{hours}h {minutes}m {seconds}s"
     return duration
-
 
 # search the current directory for the downloaded file and convert it's size to a readable format
 def find_downloaded_video(timestamp: int) -> int:

@@ -179,7 +179,7 @@ Video Size: {get_size}""")
 ###############################################
 
 # function to download the audio only
-def download_audio(url):
+def download_audio(url) -> None:
     """
     Downloads the audio from the given URL and saves it as a m4a file with a unique timestamp."""
     # Create folders for storing downloaded media
