@@ -1,5 +1,5 @@
 """
-Configuration file for the helper functions
+Configuration file for the helper functions.
 """
 # Select the video extension you want to download eg. mp4, mkv, webm, etc. default is mkv
 video_merge_output_format = "mkv" # this will be the extension of the video after merging
