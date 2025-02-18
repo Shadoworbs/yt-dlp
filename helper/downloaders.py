@@ -167,7 +167,7 @@ def download_video(url, video_height, fps=30) -> tuple:
 
     # print a success message after download completes
     logging.info(f"""
-Download complete!
+\nDownload complete!
 Video name: {video_title}_{timestamps}.{extension}
 Video location : {os.path.join(cwd, video_folder)}
 Video duration: {readable_duration}
@@ -224,7 +224,7 @@ def download_audio(url) -> None:
 
         # print success message after downloading is complete
         logging.info(f"""
-Download complete!
+\nDownload complete!
 Title: {audio_title}_{timestamps}.{extension}
 location: {os.path.join(cwd, audio_folder)}
 Duration: {readable_duration}
