@@ -11,7 +11,7 @@ from config import (video_merge_output_format as final_extension,
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: [%(asctime)s] %(message)s',
+logging.basicConfig(level=logging.INFO, format='\n%(levelname)s: [%(asctime)s] %(message)s',
                     datefmt='%H:%M %p')
 cwd = os.getcwd()
 now = datetime.now
@@ -167,7 +167,7 @@ def download_video(url, video_height, fps=30) -> tuple:
 
     # print a success message after download completes
     logging.info(f"""
-\nDownload complete!
+Download complete!
 Video name: {video_title}_{timestamps}.{extension}
 Video location : {os.path.join(cwd, video_folder)}
 Video duration: {readable_duration}
@@ -224,7 +224,7 @@ def download_audio(url) -> None:
 
         # print success message after downloading is complete
         logging.info(f"""
-\nDownload complete!
+Download complete!
 Title: {audio_title}_{timestamps}.{extension}
 location: {os.path.join(cwd, audio_folder)}
 Duration: {readable_duration}
