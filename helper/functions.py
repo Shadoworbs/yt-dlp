@@ -30,11 +30,12 @@ def convert_video_duration_from_seconds(seconds) -> str:
 def find_downloaded_video(timestamp: int) -> int:
     """
     Searches the current directory for the downloaded video file and returns it's size in bytes."""
+    timestamp = str(timestamp)
     with os.scandir(os.getcwd()) as files:
         for file in files:
-            if (timestamp in file.name 
-                and os.path.isfile(file)):
-                size_ = os.path.getsize(file)
+            if (timestamp in file.name) and (file.is_file()):
+                size_ = os.stat(file).st_size
+                break
             else:
                 # if the file is not found
                 size_ = 0
