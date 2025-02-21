@@ -133,7 +133,7 @@ def download_video(url, video_height, fps=30) -> tuple:
             'outtmpl': '%(title)s_{timestamps}.%(ext)s'.format(timestamps=timestamps),
             "encoding": "utf-8",
             "format": formats_.format(video_height, fps, video_height, fps),
-            # "playlist": True,
+            "playlist": True,
             "cookiefile": "cookies_from_browser firefox",
             "merge_output_format": final_extension
             } # using a merge output format that will result in a low size video wihout sacrificing quality
