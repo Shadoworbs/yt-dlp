@@ -2,8 +2,9 @@
 # Visit https://github.com/shadoworbs/yt-dlp for more information
 
 # import the necessary modules
-from helper.downloaders import start_downloading
+from helper.downloaders import YoutubeDownloader
 
 ## initiate the download https://youtube.com/shorts/ANSdr07F-XA?si=4RIxliQBkKvMpcdv
 if __name__ == "__main__":
-    start_downloading()
+    downloader = YoutubeDownloader()
+    downloader.start_downloading()
