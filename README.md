@@ -24,9 +24,9 @@ Open your terminal and clone this repo ```git clone https://github.com/shadoworb
 
 Run `cd yt-dlp`
 
-For windows users: run `python ytdlp.py`.
+For windows users: run `python yt.py`.
 
-For Mac or Linux: run `python3 ytdlp.py`.
+For Mac or Linux: run `python3 yt.py`.
 
 ### My social media links
 <!-- LinkTree handle -->
