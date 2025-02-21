@@ -20,17 +20,39 @@ Follow the instructions on [this page](https://github.com/yt-dlp/yt-dlp/wiki/Ins
 
 Follow [this tutorial](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/) to install **ffmpeg**.
 
-Open your terminal and clone this repo ```git clone https://github.com/shadoworbs/yt-dlp.git```
+Open your terminal and clone this repo
 
-Run `cd yt-dlp`
+```bash
+git clone https://github.com/shadoworbs/yt-dlp.git
+```
 
-For windows users: run `python yt.py`.
+Change directory
 
-For Mac or Linux: run `python3 yt.py`.
+```bash
+cd yt-dlp
+```
+
+Install required dependencies by running:
+
+```bash
+pip install -r requirements.txt
+```
+
+For windows users: run
+
+``` bash
+python yt.py
+```
+
+For Mac or Linux: run
+
+```sh
+python3 yt.py
+```
 
 ### My social media links
 <!-- LinkTree handle -->
-[![Linktree-icon](helper/scr/linktree.png)](https://linktr.ee/Shadoworbs)
+[![Linktree-icon](helper/scr/lnktr2.png)](https://linktr.ee/Shadoworbs)
 
 #### Credits
 
