@@ -2,7 +2,8 @@
 Configuration file for the helper functions.
 """
 # Select the video extension you want to download eg. mp4, mkv, webm, etc. default is mkv
-video_merge_output_format = "mkv" # this will be the extension of the video after merging
+video_merge_output_format = "mkv" # this will be the extension of the video after downloading
+audio_extension = "m4a" # this will be the extension of the audio after downloading
 
 
 # Select the video format selection options (height, fps) for the video to be downloaded

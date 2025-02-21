@@ -3,230 +3,203 @@ from datetime import datetime
 import sys
 import yt_dlp
 from yt_dlp import YoutubeDL
-from helper.functions import (convert_bytes_to_readable_format as getsize, 
-                              convert_video_duration_from_seconds as convert_seconds,
-                              log_post_download_info as log)
+from helper.functions import VideoProcessor
 from config import (video_merge_output_format as final_extension, 
-                    video_format_selection_options as formats_)
+                   video_format_selection_options as formats_,
+                   audio_extension)
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO, format='\n%(levelname)s: [%(asctime)s] %(message)s',
-                    datefmt='%H:%M %p')
-cwd = os.getcwd()
-now = datetime.now
-audio_folder, video_folder = "audio", "videos"
-timestamps = now().strftime('%Y%m%d%H%M%S')
-
-def pre_download_options() -> tuple:
-    """
-    - Function to get the user's input before downloading the video.
-        - accepts the user's input (url)
-            - If the user enters a valid youtube video link, asks if they want to download the audio only.
-            - If the user enters an invalid link, it prompts the user to enter a valid link.
-            - and if the user enters nothing, the program exits.
-        - Returns the url and the available formats.
-        - Throws an exception if the user enters an invalid link.
-    """
-     # create a variable to store the link from the user
-    url = input('\nEnter a youtube video link or press enter to exit: \n')
-    if ('https://' in url 
-        and 'youtu' in url):
-
-        audio_only = input('\nDo you want to download the audio only? (y/n) \n')
-
-        # check if user wants to download audio only
-        if (audio_only.lower() == 'y'):
-            download_audio(url)
-            sys.exit() # exit the program if user wants to download audio only
+class YoutubeDownloader:
+    """Class to handle YouTube video and audio downloads."""
     
-        # download the video
-        elif (audio_only.lower() != 'y'):
+    def __init__(self):
+        """Initialize the downloader with necessary configurations."""
+        self.video_processor = VideoProcessor()
+        self.cwd = os.getcwd()
+        self.now = datetime.now
+        self.audio_folder = "audio"
+        self.video_folder = "videos"
+        self.timestamps = self.now().strftime('%Y%m%d%H%M%S')
+        
+        # Configure logging
+        logging.basicConfig(
+            level=logging.INFO,
+            format='\n%(levelname)s: [%(asctime)s] %(message)s',
+            datefmt='%H:%M %p'
+        )
 
-            # show available formats
-            ydl_opts = {}
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                # Get available formats
-                formats = ydl.extract_info(url, download=False)['formats']
+    def pre_download_options(self) -> tuple:
+        """Get user input and return URL and available formats."""
+        url = input('\nEnter a youtube video link or press enter to exit: \n')
+        
+        if 'https://' in url and 'youtu' in url:
+            audio_only = input('\nDo you want to download the audio only? (y/n) \n')
 
-                # Filter valid resolutions only
-                filtered_formats = []
-                for format in formats:
-                    resolution = f"{format.get('height')}"
-                    fps = f"{format.get('fps')}"
-                    if (resolution not in filtered_formats
-                        and resolution is not None
-                        and resolution != 'None'):
-
-                        filtered_formats.append(resolution) # getting rid of all duplicates and None(s)
-                # show available resolutions (formats)
-                if filtered_formats:
-                    print("\n[+]Available Resolutions:")
-                    print(" #  Resolutions")
-                    print("="*15)
-                    for number, height in enumerate(filtered_formats):
-                        resolution = height
-                        print(f"{(number+1):2}. {str(resolution):<12}")
-                else:
-                    print("No available formats found.")
-    elif 'youtu' not in url and len(url) >= 1:
-            print("\nInvalid youtube link, try again.\n")
-    else:
-        sys.exit(0)
-    return url, filtered_formats
-
-
-def start_downloading() -> None:
-    """
-    Main function to initiate the download.
-    - Calls the pre_download_options function to get the user's input.
-    - Calls the download_video function to initiate the video download.
-     """
-    print(f"\n{"=" * 15} Welcome to yt-dlp! {"=" * 15}\n")
-    url, filtered_formats = pre_download_options()
-    
-    # select video quality (height)
-    while True:
-        try:
-            choice = int(input("Enter the number of the resolution you want to download (or 0 to cancel): "))
-            if 1 <= choice <= len(filtered_formats): # Check if choice is within range and not 0
-                break
-            elif int(choice) == 0:
+            if audio_only.lower() == 'y':
+                self.download_audio(url)
                 sys.exit()
-            else:
-                # if choice is not within range or is 0
-                print(f"Invalid choice. Please enter a number from 1 to {len(filtered_formats)}\n")
-        except ValueError:
-            # if user inputs a value that is not a number
-            print("Invalid input. Please enter a number.\n")
-    # set the height to selected format's height.
-    video_height = filtered_formats[choice - 1]
-    download_video(url, video_height)
+            
+            return self._get_video_formats(url)
+            
+        elif len(url) >= 1:
+            print("\nInvalid youtube link, try again.\n")
+        
+        sys.exit(0)
 
+    def _get_video_formats(self, url: str) -> tuple:
+        """Extract available video formats from URL."""
+        with yt_dlp.YoutubeDL({}) as ydl:
+            formats = ydl.extract_info(url, download=False)['formats']
+            filtered_formats = self._filter_formats(formats)
+            self._display_formats(filtered_formats)
+            return url, filtered_formats
 
-###############################################
-###########    Video Downloader   #############
-###############################################
+    def _filter_formats(self, formats: list) -> list:
+        """Filter valid video resolutions."""
+        filtered_formats = []
+        for fmt in formats:
+            resolution = f"{fmt.get('height')}"
+            if (resolution not in filtered_formats 
+                and resolution is not None 
+                and resolution != 'None'):
+                filtered_formats.append(resolution)
+        return filtered_formats
 
-# function to download video only
-def download_video(url, video_height, fps=30) -> tuple:
-    """
-    Downloads the video from the given URL, resizes it to the specified height,
-    and saves it as a video file with a unique timestamp and extension.
-    """
-    if os.path.exists(video_folder):
-        try:
-            os.chdir(video_folder)
-        except Exception as e:
-            print(f"Can't change directory to {video_folder} \n{e}")
-            pass
-    else:
-        try:
-            os.mkdir(video_folder)
-            os.chdir(video_folder)
-        except Exception as e:
-            print(f"Can't create directory {video_folder}\n{e}")
-            pass
+    def _display_formats(self, formats: list) -> None:
+        """Display available video formats."""
+        if formats:
+            print("\n[+]Available Resolutions:")
+            print(" #  Resolutions")
+            print("="*15)
+            for number, height in enumerate(formats, 1):
+                print(f"{number:2}. {height:<12}")
+        else:
+            print("No available formats found.")
 
-    # set up the video download options
-    opts = {"trim_file_name": 200,
-            'outtmpl': '%(title)s_{timestamps}.%(ext)s'.format(timestamps=timestamps),
+    def start_downloading(self) -> None:
+        """Main method to initiate the download process."""
+        print(f"\n{'=' * 15} Welcome to yt-dlp! {'=' * 15}\n")
+        url, filtered_formats = self.pre_download_options()
+        
+        video_height = self._get_user_choice(filtered_formats)
+        self.download_video(url, video_height)
+
+    def _get_user_choice(self, formats: list) -> str:
+        """Get user's format choice."""
+        while True:
+            try:
+                choice = int(input("Enter the number of the resolution you want to download (or 0 to cancel): "))
+                if 1 <= choice <= len(formats):
+                    return formats[choice - 1]
+                elif choice == 0:
+                    sys.exit()
+                print(f"Invalid choice. Please enter a number from 1 to {len(formats)}\n")
+            except ValueError:
+                print("Invalid input. Please enter a number.\n")
+
+    def download_video(self, url: str, video_height: str, fps: int = 30) -> None:
+        """Download video with specified parameters."""
+        self._prepare_directory(self.video_folder)
+        
+        opts = {
+            "trim_file_name": 200,
+            'outtmpl': f'%(title)s_{self.timestamps}.%(ext)s',
             "encoding": "utf-8",
             "format": formats_.format(video_height, fps, video_height, fps),
             "playlist": True,
             "cookiefile": "cookies_from_browser firefox",
             "merge_output_format": final_extension
-            } # using a merge output format that will result in a low size video wihout sacrificing quality
-    with YoutubeDL(opts) as ydl:
-        info_dict = ydl.extract_info(url, download=True)
-        video_title: str = info_dict.get('title', str)
-        extension = info_dict.get('ext', str)
-        # dur: str = info_dict.get('duration_string', str)
-        raw_resolution: str = info_dict.get('resolution', str)
-        # size: str = info_dict.get('filesize')
-        # video_id: str = info_dict.get('id', str)
-        video_duration = info_dict.get('duration', str)
-        video_resolution = raw_resolution.split('x')[-1] or video_height
-
-    # assign the return value ofconvert_seconds function to a variable
-    readable_duration = convert_seconds(video_duration)
-    # assign the return value of getsize function to a variable
-    get_size = getsize(timestamps)
-  
-    # prepare a info (dict) for logging
-    log_inf = {"Video Name": f'{video_title}_{timestamps}.{extension}',
-                "Location": f"{os.path.join(cwd, video_folder)}",
-                "Duration": readable_duration,
-                "Resolution": f'{video_resolution}p',
-                "Size": get_size,
-                "Link": url,
-                "Timestamp": f'{now().strftime("%A, %B %d %Y | %I:%M %p")}'}
-    
-    # log the video information
-    log(log_inf)
-
-    # print a success message after download completes
-    logging.info(f"""
-Download complete!
-Video name: {video_title}_{timestamps}.{extension}
-Video location : {os.path.join(cwd, video_folder)}
-Video duration: {readable_duration}
-Video resolution: {video_resolution}p
-Video Size: {get_size}""")
-
-###############################################
-###########    Audio Downloader   #############
-###############################################
-
-# function to download the audio only
-def download_audio(url) -> None:
-    """
-    Downloads the audio from the given URL and saves it as a m4a file with a unique timestamp."""
-    # Create folders for storing downloaded media
-    if os.path.exists(audio_folder):
-        try:
-            os.chdir(audio_folder)
-        except:
-            print(f"Couldn't change directory to {audio_folder}")
-            pass
-    else:
-        try:
-            os.mkdir(audio_folder)
-            os.chdir(audio_folder)
-        except:
-            print(f"Couldn't create directory {audio_folder}")
-            pass
-    # start the dowload process
-    with YoutubeDL({'extract_audio': True, 
-                            "format": "bestaudio[ext=m4a]/b", 
-                            'outtmpl': '%(title)s_{timestamps}.%(ext)s'.format(timestamps=timestamps),
-                            "cookiefile": "cookies_from_browser firefox"}) as audio:
-        info_dict = audio.extract_info(url, download=True) # download the audio
-        audio_title = info_dict['title'] # extract the title from the url info.json
-        extension = info_dict['ext'] # extract the extension from the url info.json
-        audio_duration = info_dict.get('duration', str)  # extract the duration fron the url info.json
-        # audio_id = info_dict.get('id', str) # get the audio id
-
-        # assign the return value of convert seconds functioni to a varible
-        readable_duration = convert_seconds(audio_duration)
-        # assign the return value of getsize to a variable
-        get_size = getsize(timestamps)
-
-        # set up the audio information dictionary for logging
-        audio_infos = {"Title": f'{audio_title}_{timestamps}.{extension}',
-                        "Location": f"{os.path.join(cwd, audio_folder)}",
-                        "Duration": readable_duration,
-                        "Size": get_size,
-                        "Timestamp": f'{now().strftime("%A, %B %d %Y | %I:%M %p")}'}
+        }
         
-        # log the audio information to a log file
-        log(audio_infos)
+        info = self._download_and_get_info(url, opts)
+        self._log_video_info(url, info)
 
-        # print success message after downloading is complete
+    def download_audio(self, url: str) -> None:
+        """Download audio only from URL."""
+        self._prepare_directory(self.audio_folder)
+        
+        opts = {
+            'extract_audio': True,
+            "format": f"bestaudio[ext={audio_extension}]/b",
+            'outtmpl': f'%(title)s_{self.timestamps}.%(ext)s',
+            "cookiefile": "cookies_from_browser firefox"
+        }
+        
+        info = self._download_and_get_info(url, opts)
+        self._log_audio_info(info)
+
+    def _prepare_directory(self, folder: str) -> None:
+        """Create and change to target directory."""
+        if not os.path.exists(folder):
+            os.mkdir(folder)
+        os.chdir(folder)
+
+    def _download_and_get_info(self, url: str, opts: dict) -> dict:
+        """Execute download and return info dictionary."""
+        with YoutubeDL(opts) as ydl:
+            return ydl.extract_info(url, download=True)
+
+    def _log_video_info(self, url: str, info: dict) -> None:
+        """Log video download information."""
+        video_title = info.get('title', '')
+        extension = info.get('ext', '')
+        raw_resolution = info.get('resolution', '')
+        video_duration = info.get('duration', '')
+        video_resolution = raw_resolution.split('x')[-1] or info.get('height', '')
+
+        readable_duration = self.video_processor.convert_video_duration_from_seconds(video_duration)
+        get_size = self.video_processor.convert_bytes_to_readable_format(self.timestamps)
+
+        log_info = {
+            "Video Name": f'{video_title}_{self.timestamps}.{extension}',
+            "Location": f"{os.path.join(self.cwd, self.video_folder)}",
+            "Duration": readable_duration,
+            "Resolution": f'{video_resolution}p',
+            "Size": get_size,
+            "Link": url,
+            "Timestamp": self.now().strftime("%A, %B %d %Y | %I:%M %p")
+        }
+        
+        self.video_processor.log_post_download_info(log_info)
+        self._print_video_success(video_title, extension, readable_duration, video_resolution, get_size)
+
+    def _log_audio_info(self, info: dict) -> None:
+        """Log audio download information."""
+        audio_title = info.get('title', '')
+        extension = info.get('ext', '')
+        audio_duration = info.get('duration', '')
+
+        readable_duration = self.video_processor.convert_video_duration_from_seconds(audio_duration)
+        get_size = self.video_processor.convert_bytes_to_readable_format(self.timestamps, file_path=self.audio_folder)
+
+        audio_info = {
+            "Title": f'{audio_title}_{self.timestamps}.{extension}',
+            "Location": f"{os.path.join(self.cwd, self.audio_folder)}",
+            "Duration": readable_duration,
+            "Size": get_size,
+            "Timestamp": self.now().strftime("%A, %B %d %Y | %I:%M %p")
+        }
+        
+        self.video_processor.log_post_download_info(audio_info)
+        self._print_audio_success(audio_title, extension, readable_duration, get_size)
+
+    def _print_video_success(self, title, ext, duration, resolution, size):
+        """Print video download success message."""
         logging.info(f"""
 Download complete!
-Title: {audio_title}_{timestamps}.{extension}
-location: {os.path.join(cwd, audio_folder)}
-Duration: {readable_duration}
-Size: {get_size}
+Video name: {title}_{self.timestamps}.{ext}
+Video location: {os.path.join(self.cwd, self.video_folder)}
+Video duration: {duration}
+Video resolution: {resolution}p
+Video Size: {size}""")
+
+    def _print_audio_success(self, title, ext, duration, size):
+        """Print audio download success message."""
+        logging.info(f"""
+Download complete!
+Title: {title}_{self.timestamps}.{ext}
+Location: {os.path.join(self.cwd, self.audio_folder)}
+Duration: {duration}
+Size: {size}
 """)
