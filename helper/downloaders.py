@@ -11,7 +11,7 @@ from config import (video_merge_output_format as final_extension,
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: [%(asctime)s] %(message)s',
+logging.basicConfig(level=logging.INFO, format='\n%(levelname)s: [%(asctime)s] %(message)s',
                     datefmt='%H:%M %p')
 cwd = os.getcwd()
 now = datetime.now
