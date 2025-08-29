@@ -5,7 +5,10 @@ from typing import Optional
 from config import video_merge_output_format, audio_extension
 
 class VideoProcessor:
-    """Class to handle video processing operations including logging, duration conversion, and file size calculations."""
+    """Class to handle video processing operations including:
+    logging, 
+    duration conversion, 
+    and file size calculations."""
     
     SIZE_NAME = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
     

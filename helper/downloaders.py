@@ -51,8 +51,9 @@ class YoutubeDownloader:
         """Extract available video formats from URL."""
         with yt_dlp.YoutubeDL({}) as ydl:
             formats = ydl.extract_info(url, download=False)['formats']
+            title = ydl.extract_info(url, download=False)['title']
             filtered_formats = self._filter_formats(formats)
-            self._display_formats(filtered_formats)
+            self._display_formats(filtered_formats, title)
             return url, filtered_formats
 
     def _filter_formats(self, formats: list) -> list:
@@ -66,11 +67,11 @@ class YoutubeDownloader:
                 filtered_formats.append(resolution)
         return filtered_formats
 
-    def _display_formats(self, formats: list) -> None:
+    def _display_formats(self, formats: list, title: str) -> None:
         """Display available video formats."""
         if formats:
-            print("\n[+]Available Resolutions:")
-            print(" #  Resolutions")
+            print(f"\n[+] Title: '{title}'")
+            print("[+] Resolutions")
             print("="*15)
             for number, height in enumerate(formats, 1):
                 print(f"{number:2}. {height:<12}")
@@ -192,7 +193,8 @@ Video name: {title}_{self.timestamps}.{ext}
 Video location: {os.path.join(self.cwd, self.video_folder)}
 Video duration: {duration}
 Video resolution: {resolution}p
-Video Size: {size}""")
+Video Size: {size}
+""")
 
     def _print_audio_success(self, title, ext, duration, size):
         """Print audio download success message."""
