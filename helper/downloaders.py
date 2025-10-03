@@ -7,6 +7,7 @@ from helper.functions import VideoProcessor
 from config import (video_merge_output_format as final_extension, 
                    video_format_selection_options as formats_,
                    audio_extension)
+from prettytable import PrettyTable
 import os
 import logging
 
@@ -70,11 +71,12 @@ class YoutubeDownloader:
     def _display_formats(self, formats: list, title: str) -> None:
         """Display available video formats."""
         if formats:
-            print(f"\n[+] Title: '{title}'")
-            print("[+] Resolutions")
-            print("="*15)
+            table = PrettyTable()
+            table.field_names = ["#", "Resolution"]
             for number, height in enumerate(formats, 1):
-                print(f"{number:2}. {height:<12}")
+                table.add_row([number, height])
+            print(f"\n[+] Title: '{title}'")
+            print(table)
         else:
             print("No available formats found.")
 
