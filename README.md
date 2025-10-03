@@ -10,6 +10,10 @@ A simple CLI tool built with [python3](https://python.org/download) to help you 
 * High quality audio.
 * Low sized high quality videos.
 
+## Teck Stack
+
+![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![ffmpeg](https://img.shields.io/badge/Ffmpeg%20-%20gray?style=for-the-badge&logo=ffmpeg&labelColor=blue&color=gray) ![Static Badge](https://img.shields.io/badge/Yt%20Dlp%20-%20black?style=for-the-badge&logo=youtube&labelColor=red)
+
 ## Setting up
 
 Download **python3** from [Here](https://python.org/download) if you do not have python installed.
@@ -50,11 +54,12 @@ For Mac or Linux: run
 python3 yt.py
 ```
 
-### My social media links
-<!-- LinkTree handle -->
-[![Linktree-icon](helper/scr/lnktr2.png)](https://linktr.ee/Shadoworbs)
+### My socials
 
-#### Credits
+<!-- LinkTree handle -->
+[![Static Badge](https://img.shields.io/badge/Contact%20Me%20%20--%20black?logo=linktree&labelColor=gray&color=lightgreen)](https://linktr.ee/Shadoworbs)
+
+### Credits
 
 <!-- Ytdlp handle -->
-[![yt-dlp icon](helper/scr/github.png)](https://github.com/yt-dlp/yt-dlp)
+[![Static Badge](https://img.shields.io/badge/Yt-Dlp%20-red?logo=github)](https://github.com/yt-dlp/yt-dlp)

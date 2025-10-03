@@ -7,6 +7,9 @@ from helper.functions import VideoProcessor
 from config import (video_merge_output_format as final_extension, 
                    video_format_selection_options as formats_,
                    audio_extension)
+from prettytable import PrettyTable
+import re
+from urllib.parse import urlparse, parse_qs
 import os
 import logging
 
@@ -29,11 +32,33 @@ class YoutubeDownloader:
             datefmt='%H:%M %p'
         )
 
+
+    @staticmethod
+    def is_valid_youtube_url(url: str) -> bool:
+
+        youtube_regex = re.compile(
+            r'^(https?://)?(www\.)?'
+            r'(youtube\.com|youtu\.be)/'
+            r'(watch\?v=|embed/|v/|shorts/|playlist\?list=)?'
+            r'([A-Za-z0-9_\-]{11,}|[A-Za-z0-9_\-]+)'
+        )
+
+        try:
+            parsed = urlparse(url)
+            domain_valid = parsed.netloc in [
+                "youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be"
+            ]
+            if 'youtube.com' in parsed.netloc and parsed.path == '/watch':
+                query = parse_qs(parsed.query)
+                return 'v' in query and len(query['v'][0]) == 11
+            return domain_valid and bool(youtube_regex.match(url))
+        except Exception:
+            return False
+
     def pre_download_options(self) -> tuple:
-        """Get user input and return URL and available formats."""
         url = input('\nEnter a youtube video link or press enter to exit: \n')
         
-        if 'https://' in url and 'youtu' in url:
+        if self.is_valid_youtube_url(url):
             audio_only = input('\nDo you want to download the audio only? (y/n) \n')
 
             if audio_only.lower() == 'y':
@@ -41,18 +66,36 @@ class YoutubeDownloader:
                 sys.exit()
             
             return self._get_video_formats(url)
-            
-        elif len(url) >= 1:
+        else:
             print("\nInvalid youtube link, try again.\n")
-        
+            # Optionally, re-prompt or exit
         sys.exit(0)
+
+    # def pre_download_options(self) -> tuple:
+    #     """Get user input and return URL and available formats."""
+    #     url = input('\nEnter a youtube video link or press enter to exit: \n')
+        
+    #     if 'https://' in url and 'youtu' in url:
+    #         audio_only = input('\nDo you want to download the audio only? (y/n) \n')
+
+    #         if audio_only.lower() == 'y':
+    #             self.download_audio(url)
+    #             sys.exit()
+            
+    #         return self._get_video_formats(url)
+            
+    #     elif len(url) >= 1:
+    #         print("\nInvalid youtube link, try again.\n")
+        
+    #     sys.exit(0)
 
     def _get_video_formats(self, url: str) -> tuple:
         """Extract available video formats from URL."""
         with yt_dlp.YoutubeDL({}) as ydl:
             formats = ydl.extract_info(url, download=False)['formats']
+            title = ydl.extract_info(url, download=False)['title']
             filtered_formats = self._filter_formats(formats)
-            self._display_formats(filtered_formats)
+            self._display_formats(filtered_formats, title)
             return url, filtered_formats
 
     def _filter_formats(self, formats: list) -> list:
@@ -66,14 +109,15 @@ class YoutubeDownloader:
                 filtered_formats.append(resolution)
         return filtered_formats
 
-    def _display_formats(self, formats: list) -> None:
+    def _display_formats(self, formats: list, title: str) -> None:
         """Display available video formats."""
         if formats:
-            print("\n[+]Available Resolutions:")
-            print(" #  Resolutions")
-            print("="*15)
+            table = PrettyTable()
+            table.field_names = ["#", "Resolution"]
             for number, height in enumerate(formats, 1):
-                print(f"{number:2}. {height:<12}")
+                table.add_row([number, height])
+            print(f"\n[+] Title: '{title}'")
+            print(table)
         else:
             print("No available formats found.")
 
@@ -192,7 +236,8 @@ Video name: {title}_{self.timestamps}.{ext}
 Video location: {os.path.join(self.cwd, self.video_folder)}
 Video duration: {duration}
 Video resolution: {resolution}p
-Video Size: {size}""")
+Video Size: {size}
+""")
 
     def _print_audio_success(self, title, ext, duration, size):
         """Print audio download success message."""
