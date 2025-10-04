@@ -10,9 +10,9 @@ A simple CLI tool built with [python3](https://python.org/download) to help you 
 * High quality audio.
 * Low sized high quality videos.
 
-## Teck Stack
+## Tech Stack
 
-![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![ffmpeg](https://img.shields.io/badge/Ffmpeg%20-%20gray?style=for-the-badge&logo=ffmpeg&labelColor=blue&color=gray) ![Static Badge](https://img.shields.io/badge/Yt%20Dlp%20-%20black?style=for-the-badge&logo=youtube&labelColor=red)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![ffmpeg](https://img.shields.io/badge/Ffmpeg%20-%20gray?style=for-the-badge&logo=ffmpeg&labelColor=blue&color=gray) ![Static Badge](https://img.shields.io/badge/Yt%20Dlp%20-%20black?style=for-the-badge&logo=youtube&labelColor=red)
 
 ## Setting up
 
